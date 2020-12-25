@@ -1,0 +1,114 @@
+/*
+Agenda MS - 2018
+Desenvolvido por: Marcos Willian de Souza
+*/
+
+@charset "UTF-8";
+
+th,  
+td{ 
+	border-bottom: 1px solid rgb(112,146,190);
+} 
+tr:nth-child(even) { 
+	background-color: rgba(112,146,190,0.4);
+}
+tr:nth-child(odd) { 
+	background-color: rgba(242,242,242,0.4);
+}
+caption,
+th{ 
+    background-color: rgb(112,146,190);
+	text-shadow: none;
+	color: white;
+}
+td{
+	color: navy;
+}
+
+
+table{
+	border: 1px solid rgb(112,146,190);
+	font-size: 10px;
+}
+table caption{
+	padding-top: 3px;
+	padding-bottom: 3px;
+	font-weight: bold;
+}
+table a{
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 10px;
+	color: navy;
+}
+table a:hover{
+	color: rgb(112,146,190);
+	text-shadow: 1px 1px lightgrey;
+}
+
+thead, 
+tbody{
+	display: block;
+}
+tbody{
+	overflow-y: scroll;
+	height: 210px;
+}
+
+.adm-usuario-coluna1{
+	width: 20px;
+	text-align: center;
+}
+.adm-usuario-coluna2{
+	width: 190px;
+}
+.adm-usuario-coluna3{
+	width: 90px;
+}
+.adm-usuario-coluna4{
+	width: 90px;
+}
+.adm-usuario-coluna5{
+	width: 190px;
+	text-align: center;
+}
+
+
+
+
+.usuario-coluna1{
+	width: 200px;
+}
+.usuario-coluna2{
+	width: 90px;
+}
+.usuario-coluna3{
+	width: 90px;
+}
+
+
+.contato-coluna1{
+	width: 20px;
+	text-align: center;
+}
+.contato-coluna2{
+	width: 150px;
+}
+.contato-coluna3{
+	width: 76px;
+}
+.contato-coluna4{
+	width: 66px;
+}
+.contato-coluna5{
+	width: 74px;
+}
+.contato-coluna6{
+	width: 130px;
+}
+.contato-coluna7{
+	width: 130px;
+}
+.contato-coluna8{
+	width: 100px;
+}

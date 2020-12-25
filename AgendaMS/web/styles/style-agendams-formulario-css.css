@@ -1,0 +1,80 @@
+/*
+Agenda MS - 2018
+Desenvolvido por: Marcos Willian de Souza
+*/
+
+@charset "UTF-8";
+/* Mensagem Back-end */
+.lbStatus{
+	color: red;
+	font-size: 16px;
+	float: right;
+	margin-right: 16px;
+	font-weight: bold;
+}
+/* Arrredonda as bordas dos campos do formulário */
+.btn-usuario,
+.btn-contato,
+.usuario,
+.contato{
+	border-top-left-radius: 0.4em 0.4em;
+	border-top-right-radius: 0.4em 0.4em;
+    border-bottom-right-radius: 0.4em 0.4em;
+	border-bottom-left-radius: 0.4em 0.4em;
+}
+/* Coloca os campos alinhados na vertical */
+.usuario,
+.contato{
+	display: block;
+}
+/* Formata a Bordas dos campos do formulário  */
+#tipoalgoritmo,
+#tipoconta,
+#atualsenha,
+#novasenha,
+#confsenha,
+#nome,
+#cpf,
+#telefone,
+#celular,
+#site,
+#email{
+	height: 26px;
+	border: 1px solid grey;
+	color: rgb(112,146,190);
+}
+#nome{
+	width: 390px;
+}
+#cpf,
+#telefone,
+#celular{
+	width: 140px;
+}
+#site,
+#email{
+	width: 300px;
+}
+#tipoalgoritmo,
+#tipoconta{
+	width: 160px;
+}
+/* Formata os botões do formulário  */
+#incluir,
+#alterar,
+#excluir,
+#voltar{
+	border: none;
+	width: 80px;
+	height: 30px;
+	background-color: rgb(112,146,190);
+	color: #ffffff;
+}
+#groupbox1{
+	width: 450px;
+	height: 30px;
+} 
+/*
+#opnome
+#opsenha
+*/

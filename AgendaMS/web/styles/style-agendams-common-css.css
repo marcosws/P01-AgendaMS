@@ -1,0 +1,93 @@
+/*
+Agenda MS - 2018
+Desenvolvido por: Marcos Willian de Souza
+*/
+@charset "UTF-8";
+
+.container-radio-button,
+.container-checkbox {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	margin-left: 20px;
+}
+.container-radio-button{
+	margin-bottom: 8px;
+}
+.container-checkbox {
+	margin-bottom: 12px;
+}
+/* Hide the browser's default checkbox */
+.container-radio-button input, 
+.container-checkbox input {
+	position: absolute;
+	opacity: 0;
+    cursor: pointer;
+	height: 0;
+	width: 0;
+}
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 18px;
+	width: 18px;
+	background-color: grey;
+}
+/* On mouse-over, add a grey background color */
+.container-radio-button:hover input ~ .checkmark,
+.container-checkbox:hover input ~ .checkmark {
+	background-color: green;
+}
+/* When the checkbox is checked, add a blue background */
+.container-radio-button input:checked ~ .checkmark,
+.container-checkbox input:checked ~ .checkmark {
+background-color: green;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+/* Show the checkmark when checked */
+	.container-checkbox input:checked ~ .checkmark:after,
+	.container-radio-button input:checked ~ .checkmark:after{
+	display: block;
+}
+/* Style the checkmark/indicator */
+.container-checkbox .checkmark:after {
+/*	left: 9px;
+	top: 5px; */
+	left: 5px;
+	top: 1px;
+	width: 5px;
+	height: 10px;
+	border: solid white;
+     border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+} 	
+/* Style the indicator (dot/circle) */
+.container-radio-button .checkmark:after {
+/*	top: 9px;
+	left: 9px; */
+	top: 5px;
+	left: 5px;
+	width: 8px;
+	height: 8px;
+	background: white;
+	border-radius: 50%;
+}
+#radio1,
+#radio2,
+#radio3,
+#radio4{
+	border-radius: 50%;
+}

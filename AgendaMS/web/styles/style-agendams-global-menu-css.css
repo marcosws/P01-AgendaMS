@@ -1,0 +1,33 @@
+/*
+Agenda MS - 2018
+Desenvolvido por: Marcos Willian de Souza
+*/
+@charset "UTF-8";
+
+#menu li{
+	margin-left: 7px;
+	margin-right: 7px;
+}
+ul li a:hover{
+	color: rgb(112,146,190);
+	text-shadow: 1px 1px lightgrey;
+}
+
+ul li.selected a{
+	color: grey;
+	text-shadow: 1px 1px  lightgrey;;
+}
+#menu li{
+	float: left;
+}
+#menu{
+	/* margin-left: 1px; */
+}
+.nav{
+	list-style-type:none;
+}
+.nav li a{
+	font-weight: bold;
+	text-decoration: none;
+	color: rgb(112,146,190);
+}

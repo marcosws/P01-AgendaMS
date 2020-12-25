@@ -1,0 +1,81 @@
+/*
+Agenda MS - 2018
+Desenvolvido por: Marcos Willian de Souza
+*/
+
+@charset "UTF-8";
+
+/* texto do back end */
+.lbStatus{
+	color: red;
+	font-size: 16px;
+	float: right;
+	margin-right: 16px;
+	font-weight: bold;
+}
+
+body{
+	background-image: url("../img/fundo-agenda.png");
+}
+html{
+	font-family: arial;
+	color: rgb(112,146,190);
+}
+img{
+	margin-left: 30px;
+}
+.usuario{
+	display: block;
+}
+#header{
+	background-color: rgb(112,146,190);
+	border-top-left-radius: 0.4em 0.4em;
+	border-top-right-radius: 0.4em 0.4em;
+}
+#body,
+#footer{
+	text-shadow: 1px 1px #ffffff;
+}
+#container{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left:-300px;
+	margin-top:-250px;
+	height: 300px;
+	width: 600px;
+	background-color: rgba(0,0,0,0.1);
+}
+#footer{
+	text-align: center;
+	margin-top: 20px;
+	border-bottom-right-radius: 0.4em 0.4em;
+	border-bottom-left-radius: 0.4em 0.4em;
+}
+#entrar,
+#container,
+#login,
+#senha{
+	border-top-left-radius: 0.4em 0.4em;
+	border-top-right-radius: 0.4em 0.4em;
+    border-bottom-right-radius: 0.4em 0.4em;
+	border-bottom-left-radius: 0.4em 0.4em;
+}
+#entrar{
+	border: none;
+	width: 80px;
+	height: 30px;
+	background-color: rgb(112,146,190);
+	color: #ffffff;
+}
+#login,
+#senha{
+	width: 200px;
+	height: 26px;
+	border: 1px solid grey;
+	color: grey;
+}
+#formulario{
+	margin-top: 30px;
+	margin-left: 30px
+}

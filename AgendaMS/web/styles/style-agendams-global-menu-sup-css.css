@@ -1,0 +1,18 @@
+/*
+Agenda MS - 2018
+Desenvolvido por: Marcos Willian de Souza
+*/
+@charset "UTF-8";
+
+#link_topo a{
+	float: right;
+	margin-top: 6px;
+	margin-right: 10px;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+}
+#link_topo a:hover{
+	color: lightgrey;
+	text-shadow: 1px 1px white;
+}
