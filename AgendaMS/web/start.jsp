@@ -19,14 +19,14 @@
 	<div id="container">
             <div id="header">
                 <div id="link_topo">
-                    <a href="cadastro.html">Criar uma Conta</a>
+                    <a href="Cadastro">Criar uma Conta</a>
                 </div>
                 <img id="logo" src="img/logo-agenda-ms.png" />
             </div>
             <div id="body">
                 <label id="status" class="lbStatus"></label> <!-- Usuário ou Senha Inválidos! -->
                 <div id="formulario">
-                    <form id="form1" class="form" method="post" action="home.html" onSubmit="return validaFormulario()">
+                    <form id="form1" class="form" method="post" action="Start" onSubmit="return validaFormulario()">
                         <label for="login" class="usuario">Login:</label>
                         <input type="text" name="Login" id="login" class="usuario" />
                         <label for="senha" class="usuario">Senha:</label>

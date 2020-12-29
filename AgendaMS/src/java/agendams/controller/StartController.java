@@ -5,13 +5,21 @@
  */
 package agendams.controller;
 
+import agendams.model.dao.UsuarioDao;
+import agendams.model.entity.Usuario;
+import agendams.model.service.UsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.FilterChain;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,6 +40,31 @@ public class StartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
+        UsuarioService usuarioService = new UsuarioService();
+        
+        String login = request.getParameter("Login");
+        String senha = request.getParameter("Senha");
+        
+        if(usuarioService.isNullOrEmpty(login) && usuarioService.isNullOrEmpty(senha)){
+           response.sendRedirect("start.jsp"); 
+        }
+        else{
+            UsuarioDao usuarioDao = new UsuarioDao();
+            Usuario usuario = new Usuario();
+            usuario = usuarioDao.consultar(login);
+            if(usuario != null){
+                if(usuario.getSenha().equals(usuarioService.hashSHA512(senha))){
+                    request.getSession().setAttribute("loginAtivo", login);
+                    response.sendRedirect("Home");
+                }
+                else{
+                    this.mensagemErro(request, response, "Senha inválida!");
+                }
+            }
+            else{
+                this.mensagemErro(request, response, "Usuário inesistente!");
+            }
+        }
 
     }
 
@@ -71,5 +104,15 @@ public class StartController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    private void mensagemErro(HttpServletRequest request, HttpServletResponse response, String mensagemDoErro) throws ServletException, IOException{
+      
+        request.setAttribute("mensagemTitulo", "Erro de Acesso");
+        request.setAttribute("mensagemErro", mensagemDoErro);
+        request.setAttribute("pagina", "Start");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("erro.jsp");
+        dispatcher.forward(request, response);
+        
+    }
 
 }

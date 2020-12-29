@@ -63,7 +63,8 @@ Desenvolvido por: Marcos Willian de Souza
 #incluir,
 #alterar,
 #excluir,
-#voltar{
+#voltar,
+#logar{
 	border: none;
 	width: 80px;
 	height: 30px;

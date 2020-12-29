@@ -21,7 +21,7 @@
             </div>
             <div id="body">
                 <div id="formulario">
-                    <form id="form1" class="form" method="post" action="start.jsp" onSubmit="return validaFormulario()">
+                    <form id="form1" class="form" method="post" action="Cadastro" onSubmit="return validaFormulario()">
                         <label for="nome" class="usuario">Nome:</label>
                         <input type="text" name="Nome" id="nome" class="usuario" />
                         <label for="login" class="usuario">Login:</label>
@@ -31,7 +31,7 @@
                         <label for="confsenha" class="usuario">Confirma Senha:</label>
                         <input type="password" name="ConfirmaSenha" id="confsenha" class="usuario" /><br />
                         <input type="submit" name="Cadastrar" id="cadastrar" class="btn-usuario" value="Cadastrar" /> &nbsp 
-                        <input type="button" name="Voltar" id="voltar" class="btn-usuario" value="Voltar" onclick="location. href='start.jsp'"/>
+                        <input type="button" name="Voltar" id="voltar" class="btn-usuario" value="Voltar" onclick="location. href='Start'"/>
                     </form>
                 </div>
             </div>

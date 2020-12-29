@@ -18,9 +18,8 @@ import org.sqlite.SQLiteConfig;
 public class ConexaoSQLite {
     
     private Properties connectionProperties = new Properties();
-    private final String path = "C:\\Projetos\\Java\\AgendaMS\\P01-AgendaMS\\AgendaMS\\db\\";
+    private final String path = "C:/Projetos/Java/AgendaMS/P01-AgendaMS/AgendaMS/db/";
     private final String database = "agendams.db";
-   
     public Connection getConnection() {
         
         SQLiteConfig config = new SQLiteConfig();
@@ -29,7 +28,7 @@ public class ConexaoSQLite {
         String strConexao = "jdbc:sqlite:" + path + database;
         try {
             Class.forName("org.sqlite.JDBC");
-            return DriverManager.getConnection(strConexao,connectionProperties);	
+            return DriverManager.getConnection(strConexao, connectionProperties);	
 	}
 	catch(SQLException | ClassNotFoundException e){
             e.printStackTrace();
