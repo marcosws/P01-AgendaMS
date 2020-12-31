@@ -28,12 +28,63 @@ public class ContatoDao {
     
     public void incluir(Contato contato){
        
+        this.connection = new ConexaoSQLite().getConnection();
+                     
+        String sql = "INSERT INTO Contato (IdUsuario, Nome, Cpf, Telefone, Celular, Email, Site) VALUES (?,?,?,?,?,?,?)";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);	
+            preparedStatement.setInt(1, contato.getIdUsuario());
+            preparedStatement.setString(2, contato.getNome());
+            preparedStatement.setString(3, contato.getCpf());
+            preparedStatement.setString(4, contato.getTelefone());
+            preparedStatement.setString(5, contato.getCelular());
+            preparedStatement.setString(6, contato.getEmail());
+            preparedStatement.setString(7, contato.getSite());
+            preparedStatement.execute();
+            preparedStatement.close();	
+            this.connection.close();
+	}
+        catch(SQLException e){
+            mensagemSQLErro = e.getMessage();
+	}
+        
     }
     public void alterar(Contato contato){
+        
+        this.connection = new ConexaoSQLite().getConnection();
+        String sql = "UPDATE Contato SET IdUsuario=?, Nome=?, Cpf=? ,Telefone=?, Celular=?, Email=?, Site=? WHERE IdContato=?;";
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);	
+            preparedStatement.setInt(1, contato.getIdUsuario());
+            preparedStatement.setString(2, contato.getNome());
+            preparedStatement.setString(3, contato.getCpf());
+            preparedStatement.setString(4, contato.getTelefone());
+            preparedStatement.setString(5, contato.getCelular());
+            preparedStatement.setString(6, contato.getEmail());
+            preparedStatement.setString(7, contato.getSite());
+            preparedStatement.setInt(8, contato.getIdContato());
+            preparedStatement.execute();
+            preparedStatement.close();	
+            this.connection.close();
+	}
+        catch(SQLException e){
+            mensagemSQLErro = e.getMessage();
+	}
         
     }
     public void excluir(Contato contato){
         
+        this.connection = new ConexaoSQLite().getConnection();
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Contato WHERE IdContato=?");
+            preparedStatement.setInt(1, contato.getIdContato());
+            preparedStatement.execute();
+            preparedStatement.close();
+            this.connection.close();
+        }
+	catch(SQLException e){
+            mensagemSQLErro = e.getMessage();
+	}   
     }
 
     public List<Contato> consultar(int idUsuario){
@@ -68,6 +119,35 @@ public class ContatoDao {
         }
         return null;
     }
+    
+     public Contato consultarContato(int idContato){
+        
+        this.connection = new ConexaoSQLite().getConnection();
+        
+        try{
+            PreparedStatement ptmt = this.connection.prepareStatement("SELECT * FROM Contato WHERE IdContato=?"); 
+            ptmt.setInt(1, idContato);
+            ResultSet resultSet = ptmt.executeQuery();
+            resultSet.next();
+            Contato contato = new Contato();
+            contato.setIdContato(resultSet.getInt("IdContato"));
+            contato.setIdUsuario(resultSet.getInt("IdUsuario"));
+            contato.setNome(resultSet.getString("Nome"));
+            contato.setCpf(resultSet.getString("Cpf"));
+            contato.setTelefone(resultSet.getString("Telefone"));
+            contato.setCelular(resultSet.getString("Celular"));
+            contato.setEmail(resultSet.getString("Email"));
+            contato.setSite(resultSet.getString("Site"));
+            resultSet.close();
+            this.connection.close();
+            return contato;
+        }
+        catch(SQLException e){
+            mensagemSQLErro = e.getMessage();
+        }
+        return null;
+    }
+    
     
     public int getTotal(){
         

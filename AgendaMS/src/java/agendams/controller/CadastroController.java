@@ -9,7 +9,6 @@ import agendams.model.dao.UsuarioDao;
 import agendams.model.entity.Usuario;
 import agendams.model.service.UsuarioService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +35,7 @@ public class CadastroController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         UsuarioService usuarioService = new UsuarioService();
         
         String nome = request.getParameter("Nome");
@@ -58,6 +58,7 @@ public class CadastroController extends HttpServlet {
                 this.mensagemErro(request, response,  "Senha não Confere!");
             }
             else{
+                
                 UsuarioDao usuarioDao = new UsuarioDao();
                 Usuario usuario = new Usuario();
                 usuario.setIdConta(1);

@@ -13,6 +13,8 @@
      else if(request.getAttribute("lista") == null){
          response.sendRedirect("Contatos");
      }
+    if(request.getSession().getAttribute("contaAtiva") != null)
+        request.setAttribute("contaUsuario", request.getSession().getAttribute("contaAtiva").equals("Administrativa"));
 %>
 <!DOCTYPE html>
 <html>
@@ -40,7 +42,7 @@
                 <li><a href="Home">Home</a></li>
                     <li class="selected"><a href="Contatos">Contatos</a></li>
                     <li><a href="Usuarios">Usuarios</a></li>
-                    <li><a href="Adm">Administração</a></li>
+                    <c:if test="${contaUsuario == true}"><li><a href="Adm">Administração</a></li></c:if>
                 </ul>
                 <br />
                 <div id="formulario">
@@ -72,7 +74,7 @@
                                             <td class="contato-coluna5">${contatos.getCelular()}</td>
                                             <td class="contato-coluna6">${contatos.getEmail()}</td>
                                             <td class="contato-coluna7">${contatos.getSite()}</td>
-                                            <td class="contato-coluna8"> &nbsp <a href="Alterar?idContato=${contatos.getIdUsuario()}">Alterar</a><span> &nbsp | &nbsp </span><a href="Excluir?idContato=${contatos.getIdUsuario()}">Excluir</a> &nbsp </td>
+                                            <td class="contato-coluna8"> &nbsp <a href="Alterar?idContato=${contatos.getIdContato()}">Alterar</a><span> &nbsp | &nbsp </span><a href="Excluir?idContato=${contatos.getIdContato()}">Excluir</a> &nbsp </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

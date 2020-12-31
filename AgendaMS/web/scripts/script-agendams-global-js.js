@@ -54,7 +54,7 @@ function validaFormulario(){
 	if(!valida)
 		alert(msg);
 	
-	return valida
+	return valida;
 }
 
 

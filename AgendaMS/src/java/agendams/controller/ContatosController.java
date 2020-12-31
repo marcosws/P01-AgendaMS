@@ -39,6 +39,7 @@ public class ContatosController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         String loginAtivo = (String) request.getSession().getAttribute("loginAtivo");
         if (loginAtivo != null) {
@@ -113,7 +114,7 @@ public class ContatosController extends HttpServlet {
     
        private void mensagemErro(HttpServletRequest request, HttpServletResponse response, String mensagemDoErro) throws ServletException, IOException{
       
-        request.setAttribute("mensagemTitulo", "Erro de Acesso");
+        request.setAttribute("mensagemTitulo", "Erro no Cadastro");
         request.setAttribute("mensagemErro", mensagemDoErro);
         request.setAttribute("pagina", "Start");
         RequestDispatcher dispatcher = request.getRequestDispatcher("erro.jsp");

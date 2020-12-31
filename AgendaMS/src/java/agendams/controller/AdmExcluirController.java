@@ -5,6 +5,7 @@
  */
 package agendams.controller;
 
+import agendams.model.dao.ContaDao;
 import agendams.model.dao.ContatoDao;
 import agendams.model.dao.UsuarioDao;
 import agendams.model.entity.Usuario;
@@ -20,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Marcos
  */
-@WebServlet(name = "HomeController", urlPatterns = {"/Home"})
-public class HomeController extends HttpServlet {
+@WebServlet(name = "AdmExcluirController", urlPatterns = {"/AdmExcluir"})
+public class AdmExcluirController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,22 +39,44 @@ public class HomeController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         
         String loginAtivo = (String) request.getSession().getAttribute("loginAtivo");
-        if (loginAtivo != null) {
+        String contaAtiva = (String) request.getSession().getAttribute("contaAtiva");
+        if (loginAtivo != null && contaAtiva.equals("Administrativa")) {
+        
+            String idUsuario = request.getParameter("idUsuario");
+            String Login = request.getParameter("Login");
             
-            UsuarioDao usuarioDao = new UsuarioDao();
-            ContatoDao contatoDao = new ContatoDao();
-            Usuario usuario = new Usuario();
-            usuario = usuarioDao.consultar(loginAtivo);
-            request.setAttribute("totalConUsuario", contatoDao.getTotal(usuario.getIdUsuario()));
-            request.setAttribute("totalContatos", contatoDao.getTotal());
-            request.setAttribute("totalUsuarios", usuarioDao.getTotal());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.forward(request, response);
+            if(Login == null){
+                
+                UsuarioDao usuarioDao = new UsuarioDao();
+                ContaDao contaDao = new ContaDao();
+                ContatoDao contatoDao = new ContatoDao();
+                Usuario usuario = new Usuario();
+                usuario = usuarioDao.consultar(Integer.parseInt(idUsuario));
+
+                request.setAttribute("idUsuario", idUsuario);
+                request.setAttribute("Nome", usuario.getNome());
+                request.setAttribute("Login", usuario.getLogin());
+                request.setAttribute("tipoConta", contaDao.consultar(usuario.getIdConta()).getTipoConta());
+                request.setAttribute("totalContatos", contatoDao.getTotal(Integer.parseInt(idUsuario)));
+                RequestDispatcher dispatcher = request.getRequestDispatcher("adm-excluir.jsp");
+                dispatcher.forward(request, response);
             
+            }
+            else{
+                
+                UsuarioDao usuarioDao = new UsuarioDao();
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(Integer.parseInt(idUsuario));
+                usuarioDao.excluir(usuario);
+                response.sendRedirect("Adm");
+                
+            }
+        
         }
         else{
             response.sendRedirect("Start");
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

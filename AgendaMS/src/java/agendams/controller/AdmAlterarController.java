@@ -5,10 +5,15 @@
  */
 package agendams.controller;
 
+import agendams.model.dao.ContaDao;
 import agendams.model.dao.ContatoDao;
 import agendams.model.dao.UsuarioDao;
+import agendams.model.entity.Conta;
 import agendams.model.entity.Usuario;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Marcos
  */
-@WebServlet(name = "HomeController", urlPatterns = {"/Home"})
-public class HomeController extends HttpServlet {
+@WebServlet(name = "AdmAlterarController", urlPatterns = {"/AdmAlterar"})
+public class AdmAlterarController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,22 +43,48 @@ public class HomeController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         
         String loginAtivo = (String) request.getSession().getAttribute("loginAtivo");
-        if (loginAtivo != null) {
+        String contaAtiva = (String) request.getSession().getAttribute("contaAtiva");
+        if (loginAtivo != null && contaAtiva.equals("Administrativa")) {
+
+            String idUsuario = request.getParameter("idUsuario");
+            String idConta = request.getParameter("idConta");
             
-            UsuarioDao usuarioDao = new UsuarioDao();
-            ContatoDao contatoDao = new ContatoDao();
-            Usuario usuario = new Usuario();
-            usuario = usuarioDao.consultar(loginAtivo);
-            request.setAttribute("totalConUsuario", contatoDao.getTotal(usuario.getIdUsuario()));
-            request.setAttribute("totalContatos", contatoDao.getTotal());
-            request.setAttribute("totalUsuarios", usuarioDao.getTotal());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-            dispatcher.forward(request, response);
+            if(idConta == null){
+                
+                UsuarioDao usuarioDao = new UsuarioDao();
+                ContaDao contaDao = new ContaDao();
+                ContatoDao contatoDao = new ContatoDao();
+                Usuario usuario = new Usuario();
+                usuario = usuarioDao.consultar(Integer.parseInt(idUsuario));
+                List<Conta> contas = new ArrayList<Conta>();
+                contas = contaDao.consultar();
+
+                request.setAttribute("idUsuario", idUsuario);
+                request.setAttribute("Nome", usuario.getNome());
+                request.setAttribute("Login", usuario.getLogin());
+                request.setAttribute("tipoConta", contaDao.consultar(usuario.getIdConta()).getTipoConta());
+                request.setAttribute("totalContatos", contatoDao.getTotal(Integer.parseInt(idUsuario)));
+                request.setAttribute("lista", contas);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("adm-alterar.jsp");
+                dispatcher.forward(request, response);
             
+            }
+            else{
+                
+                UsuarioDao usuarioDao = new UsuarioDao();
+                Usuario usuario = new Usuario();
+                usuario = usuarioDao.consultar(Integer.parseInt(idUsuario));
+                usuario.setIdConta(Integer.parseInt(idConta));
+                usuarioDao.alterar(usuario);
+                response.sendRedirect("Adm");
+                
+            }
+        
         }
         else{
             response.sendRedirect("Start");
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

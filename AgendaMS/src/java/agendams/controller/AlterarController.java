@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Marcos
  */
-@WebServlet(name = "IncluirController", urlPatterns = {"/Incluir"})
-public class IncluirController extends HttpServlet {
+@WebServlet(name = "AlterarController", urlPatterns = {"/Alterar"})
+public class AlterarController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +40,7 @@ public class IncluirController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
+        String idContato = request.getParameter("idContato");
         String nome = request.getParameter("Nome");
         String cpf = request.getParameter("CPF");
         String telefone = request.getParameter("Telefone");
@@ -50,38 +51,60 @@ public class IncluirController extends HttpServlet {
         String loginAtivo = (String) request.getSession().getAttribute("loginAtivo");
         if (loginAtivo != null) {
 
-            if((nome == null && cpf == null) 
-            && (telefone == null && celular == null)
-            && (email == null && site == null)){
-                response.sendRedirect("incluir.jsp");
-            } 
-            else{
-
-                ContatoService contatoService = new ContatoService();
-                ContatoDao contatoDao = new ContatoDao();
-                UsuarioDao usuarioDao = new UsuarioDao();
-                Usuario usuario = usuarioDao.consultar(loginAtivo);
-                Contato contato = new Contato();
-                contato.setIdUsuario(usuario.getIdUsuario());
-                contato.setNome(nome);
-                contato.setCpf(contatoService.removeMascara(cpf));
-                contato.setTelefone(contatoService.removeMascara(telefone));
-                contato.setCelular(contatoService.removeMascara(celular));
-                contato.setEmail(email);
-                contato.setSite(site);
-                contatoDao.incluir(contato);
-                if(contatoDao.getMensagemSQLErro().equals("")){
-                    response.sendRedirect("Contatos");
+            if(idContato != null){
+                if((nome == null && cpf == null) 
+                && (telefone == null && celular == null)
+                && (email == null && site == null)){
+                    
+                    ContatoService contatoService = new ContatoService();
+                    ContatoDao contatoDao = new ContatoDao();
+                    Contato contato = new Contato();
+                    contato = contatoDao.consultarContato(Integer.parseInt(idContato));
+                    request.setAttribute("idContato", idContato);
+                    request.setAttribute("Nome", contato.getNome());
+                    request.setAttribute("CPF", contatoService.mascaraCpf(contato.getCpf()));
+                    request.setAttribute("Telefone", contatoService.mascaraTelefone(contato.getTelefone()));
+                    request.setAttribute("Celular", contatoService.mascaraCelular(contato.getCelular()));
+                    request.setAttribute("Email", contato.getEmail());
+                    request.setAttribute("Site", contato.getSite());
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("alterar.jsp");
+                    dispatcher.forward(request, response);
+                    
                 }
                 else{
-                    this.mensagemErro(request, response, contatoDao.getMensagemSQLErro());
+                   
+                    ContatoService contatoService = new ContatoService();
+                    ContatoDao contatoDao = new ContatoDao();
+                    UsuarioDao usuarioDao = new UsuarioDao();
+                    Usuario usuario = usuarioDao.consultar(loginAtivo);
+                    Contato contato = new Contato();
+                    contato.setIdContato(Integer.parseInt(idContato));
+                    contato.setIdUsuario(usuario.getIdUsuario());
+                    contato.setNome(nome);
+                    contato.setCpf(contatoService.removeMascara(cpf));
+                    contato.setTelefone(contatoService.removeMascara(telefone));
+                    contato.setCelular(contatoService.removeMascara(celular));
+                    contato.setEmail(email);
+                    contato.setSite(site);
+                    contatoDao.alterar(contato);
+                    if(contatoDao.getMensagemSQLErro().equals("")){
+                        response.sendRedirect("Contatos");
+                    }
+                    else{
+                        this.mensagemErro(request, response, contatoDao.getMensagemSQLErro());
+                    }
+                    
                 }
 
+            } 
+            else{
+                response.sendRedirect("Contatos"); 
             }
         }
         else{
             response.sendRedirect("Start");
         }
+        
         
     }
 

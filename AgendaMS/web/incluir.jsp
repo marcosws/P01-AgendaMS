@@ -5,6 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+     if(request.getSession().getAttribute("loginAtivo") == null || request.getSession().getAttribute("loginAtivo") == ""){
+        response.sendRedirect("Start");
+     }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,7 +28,7 @@
         <div id="container">
             <div id="header">
                 <div id="link_topo">
-                    <a href="sair.html">Logout</a><a href="conta.html">Conta</a>
+                    <a href="Sair">Logout</a><a href="Conta">Conta</a>
                 </div>
                 <img id="logo" src="img/logo-agenda-ms.png" />
             </div>
@@ -45,7 +50,7 @@
                         <label for="site" class="contato">Site:</label>
                         <input type="text" name="Site" id="site" class="contato" placeholder="Ex: www.sitedocontato.com.br" maxlength="100"/><br />
                         <input type="submit" name="Incluir" id="incluir" class="btn-contato" value="Incluir" /> &nbsp 
-                        <input type="button" name="Voltar" id="voltar" class="btn-contato" value="Voltar" onclick="location. href='contatos.html'"/>
+                        <input type="button" name="Voltar" id="voltar" class="btn-contato" value="Voltar" onclick="location. href='Contatos'"/>
                     </form>
                 </div>
             </div>

@@ -5,7 +5,9 @@
  */
 package agendams.controller;
 
+import agendams.model.dao.ContaDao;
 import agendams.model.dao.UsuarioDao;
+import agendams.model.entity.Conta;
 import agendams.model.entity.Usuario;
 import agendams.model.service.UsuarioService;
 import java.io.IOException;
@@ -40,21 +42,37 @@ public class StartController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
         UsuarioService usuarioService = new UsuarioService();
         
         String login = request.getParameter("Login");
         String senha = request.getParameter("Senha");
         
         if(usuarioService.isNullOrEmpty(login) && usuarioService.isNullOrEmpty(senha)){
-           response.sendRedirect("start.jsp"); 
+            String loginAtivo = (String) request.getSession().getAttribute("loginAtivo");
+            if(loginAtivo == null){
+                response.sendRedirect("start.jsp"); 
+            }
+            else{
+                response.sendRedirect("Home");
+            }
         }
         else{
             UsuarioDao usuarioDao = new UsuarioDao();
             Usuario usuario = new Usuario();
             usuario = usuarioDao.consultar(login);
+            
+            
+            
             if(usuario != null){
                 if(usuario.getSenha().equals(usuarioService.hashSHA512(senha))){
+                    
+                    ContaDao contaDao = new ContaDao();
+                    Conta conta = new Conta();
+                    conta = contaDao.consultar(usuario.getIdConta());
                     request.getSession().setAttribute("loginAtivo", login);
+                    request.getSession().setAttribute("contaAtiva", conta.getTipoConta());
                     response.sendRedirect("Home");
                 }
                 else{

@@ -5,6 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if(request.getSession().getAttribute("loginAtivo") != null){
+        response.sendRedirect("Home");
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>

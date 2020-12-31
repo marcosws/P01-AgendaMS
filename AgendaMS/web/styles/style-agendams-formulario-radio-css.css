@@ -5,11 +5,20 @@ Desenvolvido por: Marcos Willian de Souza
 @charset "UTF-8";
 
 #form1{
-	display: inline;
+    display: inline;
 }
 #form2{
-	display: none;
+    display: none;
 }
 #form3{
-	display: none;
+    display: none;
+}
+fieldset{
+    width: 240px;
+    border-radius: 10px;
+    border: 1px solid appworkspace;
+}
+legend{
+    margin-left: 10px;
+    color: rgb(112,146,190);;
 }

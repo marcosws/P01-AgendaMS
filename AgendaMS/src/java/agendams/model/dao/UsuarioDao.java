@@ -52,7 +52,7 @@ public class UsuarioDao {
        
         try{
             PreparedStatement preparedStatement = null;
-            if(usuario.getSenha().isEmpty()){
+            if(!usuario.getSenha().isEmpty()){
                 
                 String sql = "UPDATE Usuario SET IdConta=?, Nome=?, Login=?, Senha=? WHERE IdUsuario=?;";
                 preparedStatement = connection.prepareStatement(sql);	

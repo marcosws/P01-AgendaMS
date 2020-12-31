@@ -5,10 +5,12 @@
  */
 package agendams.controller;
 
+import agendams.model.dao.ContaDao;
 import agendams.model.dao.ContatoDao;
 import agendams.model.dao.UsuarioDao;
 import agendams.model.entity.Usuario;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Marcos
  */
-@WebServlet(name = "HomeController", urlPatterns = {"/Home"})
-public class HomeController extends HttpServlet {
+@WebServlet(name = "AdmConsultarController", urlPatterns = {"/AdmConsultar"})
+public class AdmConsultarController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,22 +40,30 @@ public class HomeController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         
         String loginAtivo = (String) request.getSession().getAttribute("loginAtivo");
-        if (loginAtivo != null) {
-            
+        String contaAtiva = (String) request.getSession().getAttribute("contaAtiva");
+        if (loginAtivo != null && contaAtiva.equals("Administrativa")) {
+        
+            String idUsuario = request.getParameter("idUsuario");
             UsuarioDao usuarioDao = new UsuarioDao();
+            ContaDao contaDao = new ContaDao();
             ContatoDao contatoDao = new ContatoDao();
             Usuario usuario = new Usuario();
-            usuario = usuarioDao.consultar(loginAtivo);
-            request.setAttribute("totalConUsuario", contatoDao.getTotal(usuario.getIdUsuario()));
-            request.setAttribute("totalContatos", contatoDao.getTotal());
-            request.setAttribute("totalUsuarios", usuarioDao.getTotal());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+            usuario = usuarioDao.consultar(Integer.parseInt(idUsuario));
+
+            request.setAttribute("idUsuario", idUsuario);
+            request.setAttribute("Nome", usuario.getNome());
+            request.setAttribute("Login", usuario.getLogin());
+            request.setAttribute("tipoConta", contaDao.consultar(usuario.getIdConta()).getTipoConta());
+            request.setAttribute("totalContatos", contatoDao.getTotal(Integer.parseInt(idUsuario)));
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adm-consultar.jsp");
             dispatcher.forward(request, response);
-            
+        
         }
         else{
             response.sendRedirect("Start");
         }
+ 
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

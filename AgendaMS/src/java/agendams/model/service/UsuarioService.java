@@ -9,7 +9,9 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -45,6 +47,13 @@ public class UsuarioService {
     }
     public boolean isNullOrEmpty(String valor){
         return (valor == null || valor.isEmpty());
+    }
+    
+    public void teste(){
+        
+        List<String> usuario = new ArrayList<String>();
+        List<List<String>> usuarios = new ArrayList<List<String>>();
+        
     }
     
 }

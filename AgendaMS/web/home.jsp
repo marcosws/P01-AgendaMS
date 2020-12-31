@@ -5,13 +5,16 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-     if(request.getSession().getAttribute("loginAtivo") == null || request.getSession().getAttribute("loginAtivo") == ""){
-        response.sendRedirect("Start");
-     }
-     else if(request.getAttribute("totalConUsuario") == null){
-         response.sendRedirect("Home");
-     }
+    if(request.getSession().getAttribute("loginAtivo") == null || request.getSession().getAttribute("loginAtivo") == ""){
+       response.sendRedirect("Start");
+    }
+    else if(request.getAttribute("totalConUsuario") == null){
+        response.sendRedirect("Home");
+    }
+    if(request.getSession().getAttribute("contaAtiva") != null)
+        request.setAttribute("contaUsuario", request.getSession().getAttribute("contaAtiva").equals("Administrativa"));
 %>
 <!DOCTYPE html>
 <html>
@@ -28,7 +31,7 @@
         <div id="container">
             <div id="header">
                 <div id="link_topo">
-                    <a href="Sair">Logout</a><a href="conta.html">Conta</a>
+                    <a href="Sair">Logout</a><a href="Conta">Conta</a>
                 </div>
                     <img id="logo" src="img/logo-agenda-ms.png" />
                 </div>
@@ -37,7 +40,7 @@
                         <li class="selected"><a href="Home">Home</a></li>
                         <li><a href="Contatos">Contatos</a></li>
                         <li><a href="Usuarios">Usuarios</a></li>
-                        <li><a href="Adm">Administração</a></li>
+                        <c:if test="${contaUsuario == true}"><li><a href="Adm">Administração</a></li></c:if>
                     </ul>
                      <br />
                     <div id="formulario">
