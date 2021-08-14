@@ -47,6 +47,7 @@ public class HomeController extends HttpServlet {
             request.setAttribute("totalConUsuario", contatoDao.getTotal(usuario.getIdUsuario()));
             request.setAttribute("totalContatos", contatoDao.getTotal());
             request.setAttribute("totalUsuarios", usuarioDao.getTotal());
+            request.setAttribute("tipoUsuario", request.getSession().getAttribute("contaAtiva"));
             RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
             dispatcher.forward(request, response);
             

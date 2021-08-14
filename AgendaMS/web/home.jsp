@@ -42,14 +42,15 @@
                         <li><a href="Usuarios">Usuarios</a></li>
                         <c:if test="${contaUsuario == true}"><li><a href="Adm">Administração</a></li></c:if>
                     </ul>
-                     <br />
+                    <br />
                     <div id="formulario">
                     <h1>Home</h1>
                     <h3>Bem Vindo a Agenda MS!</h3>
                     <h5>Com a Agenda MS você pode manter seus contatos de forma facil.</h5>
                     <h4>Você tem ${totalConUsuario} Contatos Cadastrados.</h4>
                     <h4>Total de Contatos Cadastrados: ${totalContatos}</h4>
-                    <h4>Total de Usuários Cadastrados: ${totalUsuarios}</h4>			
+                    <h4>Total de Usuários Cadastrados: ${totalUsuarios}</h4>
+                    <h4>Tipo de Conta: ${tipoUsuario}</h4>
                 </div>
             </div>
             <div id="footer">
